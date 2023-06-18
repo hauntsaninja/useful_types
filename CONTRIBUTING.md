@@ -2,7 +2,7 @@
 
 ## Running tests
 
-TODO :-)
+- `tox`
 
 ## Philosophy
 
