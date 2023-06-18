@@ -224,6 +224,9 @@ class SupportsWrite(Protocol[_T_contra]):
 if sys.version_info >= (3, 12):
     from collections.abc import Buffer as _Buffer
 else:
+    # typing_extensions defines Buffer as an ABC. On older Python versions, we don't have this
+    # special casing: https://github.com/python/cpython/blob/v3.12.0b2/Lib/typing.py#L1764
+    # and so we run into problems when trying to create subprotocols
     if TYPE_CHECKING:
         from typing_extensions import Buffer as _Buffer
     else:
