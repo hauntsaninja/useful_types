@@ -122,9 +122,9 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
 # File handling
 # ====================
 
-StrPath: TypeAlias = Union[str, PathLike[str]]
-BytesPath: TypeAlias = Union[bytes, PathLike[bytes]]
-StrOrBytesPath: TypeAlias = Union[str, bytes, PathLike[str], PathLike[bytes]]
+StrPath: TypeAlias = Union[str, "PathLike[str]"]
+BytesPath: TypeAlias = Union[bytes, "PathLike[bytes]"]
+StrOrBytesPath: TypeAlias = Union[str, bytes, "PathLike[str]", "PathLike[bytes]"]
 
 OpenTextModeUpdating: TypeAlias = Literal[
     "r+",
