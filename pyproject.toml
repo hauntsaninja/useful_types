@@ -20,3 +20,4 @@ build-backend = "flit_core.buildapi"
 [tool.black]
 line-length = 100
 skip-magic-trailing-comma = true
+pyi = true
