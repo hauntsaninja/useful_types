@@ -41,3 +41,14 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: pip install tox
       - run: tox run -e import
+
+  test_mypy:
+    name: Check static test cases with mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - run: pip install tox
+      - run: tox run -e mypy
