@@ -54,7 +54,7 @@ class DataclassLikeTests(unittest.TestCase):
         self.assertNotIsInstance(HasAllAttributes(), DataclassLike)
     @skipUnless(
         hasattr(types, "GenericAlias"),
-        "Cannot test subclasses of GenericAlias if GenericAlias does not exist"
+        "Cannot test subclasses of GenericAlias if GenericAlias does not exist",
     )
     def test_dataclass_subclassing_GenericAlias(self):
         @dataclass
