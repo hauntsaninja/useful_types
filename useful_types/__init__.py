@@ -5,9 +5,9 @@ from collections.abc import Awaitable, Iterable, Sequence
 from collections.abc import Set as AbstractSet
 from collections.abc import Sized
 from os import PathLike
-from typing import TYPE_CHECKING, Any, Protocol, TypeVar, Union, overload
+from typing import Any, TypeVar, Union, overload
 
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Buffer, Literal, Protocol, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -221,31 +221,20 @@ class SupportsWrite(Protocol[_T_contra]):
 # Buffer protocols
 # ====================
 
-if sys.version_info >= (3, 12):
-    from collections.abc import Buffer as _Buffer
-else:
-    # typing_extensions defines Buffer as an ABC. On older Python versions, we don't have this
-    # special casing: https://github.com/python/cpython/blob/v3.12.0b2/Lib/typing.py#L1764
-    # and so we run into problems when trying to create subprotocols
-    if TYPE_CHECKING:
-        from typing_extensions import Buffer as _Buffer
-    else:
-        class _Buffer(Protocol): ...
-
 # Unfortunately PEP 688 does not allow us to distinguish read-only
 # from writable buffers. We use these aliases for readability for now.
 # Perhaps a future extension of the buffer protocol will allow us to
 # distinguish these cases in the type system.
-ReadOnlyBuffer: TypeAlias = _Buffer
+ReadOnlyBuffer: TypeAlias = Buffer
 # Anything that implements the read-write buffer interface.
-WriteableBuffer: TypeAlias = _Buffer
+WriteableBuffer: TypeAlias = Buffer
 # Same as WriteableBuffer, but also includes read-only buffer types (like bytes).
-ReadableBuffer: TypeAlias = _Buffer
+ReadableBuffer: TypeAlias = Buffer
 
-class SliceableBuffer(_Buffer, Protocol):
+class SliceableBuffer(Buffer, Protocol):
     def __getitem__(self, __slice: slice) -> Sequence[int]: ...
 
-class IndexableBuffer(_Buffer, Protocol):
+class IndexableBuffer(Buffer, Protocol):
     def __getitem__(self, __i: int) -> int: ...
 
 class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
@@ -255,4 +244,4 @@ class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     @overload
     def __getitem__(self, __i: int) -> int: ...
 
-class SizedBuffer(Sized, _Buffer, Protocol): ...
+class SizedBuffer(Sized, Buffer, Protocol): ...
