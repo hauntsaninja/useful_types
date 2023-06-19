@@ -4,21 +4,18 @@ import abc
 from collections.abc import Callable
 from dataclasses import Field, dataclass, is_dataclass
 from types import FrameType, TracebackType
-<<<<<<< Updated upstream
 from typing import (
     TYPE_CHECKING,
     Any,
     ClassVar,
     Protocol,
     Tuple,
+    Type,
     TypeVar,
     Union,
     final,
     runtime_checkable,
 )
-=======
-from typing import Any, ClassVar, Protocol, Tuple, Type, TypeVar, Union, final, runtime_checkable, TYPE_CHECKING
->>>>>>> Stashed changes
 from typing_extensions import LiteralString, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
