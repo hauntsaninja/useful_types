@@ -1,6 +1,7 @@
 import types
 import unittest
 from dataclasses import dataclass, is_dataclass
+from unittest import skipUnless
 
 from useful_types.experimental import DataclassLike
 
@@ -17,6 +18,7 @@ class DataclassLikeTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             class Foo(DataclassLike):
                 pass
+
     def test_isinstance_issubclass(self):
         @dataclass
         class Dataclass:
@@ -52,6 +54,8 @@ class DataclassLikeTests(unittest.TestCase):
         self.assertFalse(issubclass(HasAllAttributes, DataclassLike))
         self.assertNotIsInstance(HasAllAttributes(), DataclassLike)
 
+    @skipUnless(hasattr(types, "GenericAlias"))
+    def test_dataclass_subclassing_GenericAlias(self):
         @dataclass
         class GenericAliasSubclass(types.GenericAlias):
             origin: type

@@ -16,7 +16,7 @@ def test_DataclassLike(x: DataclassLike, y: Union[DataclassLike, Type[DataclassL
     assert_type(dc.astuple(x), Tuple[Any, ...])
 
     # DataclassLike cannot be subclassed
-    class Foo(DataclassLike):
-        pass  # type: ignore
+    class Foo(DataclassLike):  # type: ignore
+        pass
     # DataclassLike cannot be instantiated
     DataclassLike()  # type: ignore
