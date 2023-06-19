@@ -3,12 +3,11 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import Field
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Protocol, TypeVar, Union
-
+from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union
 from typing_extensions import LiteralString, TypeAlias
 
-ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
-OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]
+ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
+OptExcInfo: TypeAlias = Union[ExcInfo, Tuple[None, None, None]]
 
 # Superset of typing.AnyStr that also includes LiteralString
 AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)

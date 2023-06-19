@@ -1,6 +1,5 @@
 import pickle
 from typing import Sequence, cast
-
 from typing_extensions import assert_type
 
 import useful_types as ut
