@@ -21,8 +21,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test_import:
-    name: Check import useful_types
+  runtime_tests:
+    name: Runtime tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
