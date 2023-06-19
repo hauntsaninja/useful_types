@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 from collections.abc import Awaitable, Iterable, Sequence
 from collections.abc import Set as AbstractSet
 from collections.abc import Sized
