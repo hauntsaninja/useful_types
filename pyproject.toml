@@ -21,3 +21,11 @@ build-backend = "flit_core.buildapi"
 line-length = 100
 skip-magic-trailing-comma = true
 pyi = true
+
+[tool.mypy]
+python_version = "3.8"
+warn_unused_ignores = true
+
+[tool.pyright]
+pythonVersion = "3.8"
+reportUnnecessaryTypeIgnoreComment = true
