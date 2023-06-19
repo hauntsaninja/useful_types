@@ -4,9 +4,9 @@ from collections.abc import Awaitable, Iterable, Sequence
 from collections.abc import Set as AbstractSet
 from collections.abc import Sized
 from os import PathLike
-from typing import Any, Protocol, TypeVar, Union, overload
+from typing import Any, TypeVar, Union, overload
 
-from typing_extensions import Buffer, Literal, TypeAlias
+from typing_extensions import Buffer, Literal, Protocol, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -215,6 +215,10 @@ class SupportsNoArgReadline(Protocol[_T_co]):
 
 class SupportsWrite(Protocol[_T_contra]):
     def write(self, __s: _T_contra) -> object: ...
+
+# ====================
+# Buffer protocols
+# ====================
 
 # Unfortunately PEP 688 does not allow us to distinguish read-only
 # from writable buffers. We use these aliases for readability for now.
