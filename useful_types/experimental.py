@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import abc
-from collections.abc import Callable
 from dataclasses import Field, dataclass, is_dataclass
 from types import FrameType, TracebackType
 from typing import (
     TYPE_CHECKING,
     Any,
+    Callable,
     ClassVar,
     Protocol,
     Tuple,
