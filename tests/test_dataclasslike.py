@@ -15,13 +15,12 @@ class DataclassLikeTests(unittest.TestCase):
             DataclassLike()
 
         with self.assertRaises(TypeError):
-            class Foo(DataclassLike): pass
-
+            class Foo(DataclassLike):
+                pass
     def test_isinstance_issubclass(self):
         @dataclass
         class Dataclass:
             x: int
-
         self.assertTrue(issubclass(Dataclass, DataclassLike))
         self.assertIsInstance(Dataclass(42), DataclassLike)
 
@@ -31,28 +30,25 @@ class DataclassLikeTests(unittest.TestCase):
         class NotADataclass:
             def __init__(self):
                 self.x = 42
-
         self.assertFalse(issubclass(NotADataclass, DataclassLike))
         self.assertNotIsInstance(NotADataclass(), DataclassLike)
 
         class NotADataclassButDataclassLike:
             """A class from an outside library (attrs?) with dataclass-like behaviour"""
-            __dataclass_fields__ = {}
 
+            __dataclass_fields__ = {}
         self.assertTrue(issubclass(NotADataclassButDataclassLike, DataclassLike))
         self.assertIsInstance(NotADataclassButDataclassLike(), DataclassLike)
 
         class HasInstanceDataclassFieldsAttribute:
             def __init__(self):
                 self.__dataclass_fields__ = {}
-
         self.assertFalse(issubclass(HasInstanceDataclassFieldsAttribute, DataclassLike))
         self.assertNotIsInstance(HasInstanceDataclassFieldsAttribute(), DataclassLike)
 
         class HasAllAttributes:
             def __getattr__(self, name):
                 return {}
-
         self.assertFalse(issubclass(HasAllAttributes, DataclassLike))
         self.assertNotIsInstance(HasAllAttributes(), DataclassLike)
 
@@ -60,7 +56,6 @@ class DataclassLikeTests(unittest.TestCase):
         class GenericAliasSubclass(types.GenericAlias):
             origin: type
             args: type
-
         self.assertTrue(issubclass(GenericAliasSubclass, DataclassLike))
         self.assertIsInstance(GenericAliasSubclass(int, str), DataclassLike)
 

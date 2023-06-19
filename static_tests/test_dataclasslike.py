@@ -4,9 +4,7 @@ from typing_extensions import assert_type
 
 from useful_types.experimental import DataclassLike
 
-def test_DataclassLike(
-    x: DataclassLike, y: Union[DataclassLike, Type[DataclassLike]]
-) -> None:
+def test_DataclassLike(x: DataclassLike, y: Union[DataclassLike, Type[DataclassLike]]) -> None:
     assert_type(dc.fields(x), Tuple[dc.Field[Any], ...])
     assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
 
@@ -18,7 +16,7 @@ def test_DataclassLike(
     assert_type(dc.astuple(x), Tuple[Any, ...])
 
     # DataclassLike cannot be subclassed
-    class Foo(DataclassLike): pass  # type: ignore
-
+    class Foo(DataclassLike):
+        pass  # type: ignore
     # DataclassLike cannot be instantiated
     DataclassLike()  # type: ignore

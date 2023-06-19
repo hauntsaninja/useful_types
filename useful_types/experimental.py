@@ -4,7 +4,17 @@ import abc
 from collections.abc import Callable
 from dataclasses import Field, dataclass, is_dataclass
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union, final, runtime_checkable, TYPE_CHECKING
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    ClassVar,
+    Protocol,
+    Tuple,
+    TypeVar,
+    Union,
+    final,
+    runtime_checkable,
+)
 from typing_extensions import LiteralString, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
@@ -34,6 +44,7 @@ if TYPE_CHECKING:
     @runtime_checkable
     class DataclassLike(Protocol):  # type: ignore[misc]
         __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+
 else:
     @dataclass(init=False, repr=False, eq=False, match_args=False)
     class DataclassLike(metaclass=abc.ABCMeta):
@@ -41,15 +52,14 @@ else:
 
         Mainly useful for type-checking.
         """
+
         def __init_subclass__(cls):
             raise TypeError(
                 "Use the @dataclass decorator to create dataclasses, "
                 "rather than subclassing dataclasses.DataclassLike"
             )
-
         def __new__(cls):
             raise TypeError(
                 "dataclasses.DataclassLike is an abstract class that cannot be instantiated"
             )
-
         __subclasshook__ = is_dataclass
