@@ -47,7 +47,7 @@ if TYPE_CHECKING:
         __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
 else:
-    @dataclass(init=False, repr=False, eq=False, match_args=False)
+    @dataclass(init=False, repr=False, eq=False)
     class DataclassLike(metaclass=abc.ABCMeta):
         """Abstract base class for all dataclass types.
 
