@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: pip install tox
-      - run: tox run -e import
+      - run: tox run -e runtime_tests
 
   test_mypy:
     name: Check static test cases with mypy

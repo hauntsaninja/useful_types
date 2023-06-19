@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import abc
 from collections.abc import Callable
-from dataclasses import Field
+from dataclasses import Field, dataclass, is_dataclass
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union
+from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union, final, runtime_checkable, TYPE_CHECKING
 from typing_extensions import LiteralString, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
@@ -22,8 +23,33 @@ ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
 TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction", None]]
 
-# Might not work as expected for pyright, see
-#   https://github.com/python/typeshed/pull/9362
-#   https://github.com/microsoft/pyright/issues/4339
-class DataclassInstance(Protocol):
-    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+if TYPE_CHECKING:
+    # Might not work as expected for pyright, see
+    #   https://github.com/python/typeshed/pull/9362
+    #   https://github.com/microsoft/pyright/issues/4339
+    #
+    # The type ignore is to workaround a mypy complaint:
+    # Final class useful_types.experimental.DataclassLike has abstract attributes "__dataclass_fields__"
+    @final
+    @runtime_checkable
+    class DataclassLike(Protocol):  # type: ignore[misc]
+        __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+else:
+    @dataclass(init=False, repr=False, eq=False, match_args=False)
+    class DataclassLike(metaclass=abc.ABCMeta):
+        """Abstract base class for all dataclass types.
+
+        Mainly useful for type-checking.
+        """
+        def __init_subclass__(cls):
+            raise TypeError(
+                "Use the @dataclass decorator to create dataclasses, "
+                "rather than subclassing dataclasses.DataclassLike"
+            )
+
+        def __new__(cls):
+            raise TypeError(
+                "dataclasses.DataclassLike is an abstract class that cannot be instantiated"
+            )
+
+        __subclasshook__ = is_dataclass
