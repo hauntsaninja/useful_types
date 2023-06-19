@@ -3,8 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import Field
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Protocol, TypeVar, Tuple, Union
-
+from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union
 from typing_extensions import LiteralString, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
