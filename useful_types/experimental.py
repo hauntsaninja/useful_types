@@ -4,6 +4,7 @@ import abc
 from collections.abc import Callable
 from dataclasses import Field, dataclass, is_dataclass
 from types import FrameType, TracebackType
+<<<<<<< Updated upstream
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -15,9 +16,12 @@ from typing import (
     final,
     runtime_checkable,
 )
+=======
+from typing import Any, ClassVar, Protocol, Tuple, Type, TypeVar, Union, final, runtime_checkable, TYPE_CHECKING
+>>>>>>> Stashed changes
 from typing_extensions import LiteralString, TypeAlias
 
-ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
+ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, Tuple[None, None, None]]
 
 # Superset of typing.AnyStr that also includes LiteralString
