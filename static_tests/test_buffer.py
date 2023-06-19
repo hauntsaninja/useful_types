@@ -5,7 +5,6 @@ from typing_extensions import assert_type
 
 import useful_types as ut
 
-
 def takes_read_only_buffer(b: ut.ReadOnlyBuffer) -> None:
     b[0]  # type: ignore
 

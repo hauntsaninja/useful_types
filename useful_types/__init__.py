@@ -244,3 +244,16 @@ class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     def __getitem__(self, __i: int) -> int: ...
 
 class SizedBuffer(Sized, Buffer, Protocol): ...
+
+def not_none(obj: _T | None, /, message: str | None = None) -> _T:
+    """Raise TypeError if obj is None, otherwise return obj.
+
+    Useful for safely casting away optional types.
+
+    """
+    if obj is None:
+        if message is not None:
+            raise TypeError(message)
+        else:
+            raise TypeError("Object is unexpectedly None")
+    return obj
