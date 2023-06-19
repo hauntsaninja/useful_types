@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Awaitable, Iterable, Sequence
-from collections.abc import Set as AbstractSet
-from collections.abc import Sized
+from collections.abc import Awaitable, Iterable, Sequence, Set as AbstractSet, Sized
 from os import PathLike
 from typing import Any, TypeVar, Union, overload
-
 from typing_extensions import Buffer, Literal, Protocol, TypeAlias
 
 _KT = TypeVar("_KT")

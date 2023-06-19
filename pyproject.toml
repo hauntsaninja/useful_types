@@ -22,6 +22,21 @@ line-length = 100
 skip-magic-trailing-comma = true
 pyi = true
 
+[tool.isort]
+profile = "black"
+# Try to avoid fighting with black because pyi=True
+lines_after_imports = 1
+
+combine_as_imports = true
+line_length = 100
+extra_standard_library = ["typing_extensions"]
+
+[tool.ruff]
+select = ["E", "F", "W", "B"]
+ignore = ["E501"]
+unfixable = ["F841", "F601", "F602", "B018"]
+target-version = "py39"
+
 [tool.mypy]
 python_version = "3.8"
 warn_unused_ignores = true
