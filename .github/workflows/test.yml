@@ -51,3 +51,14 @@ jobs:
           python-version: '3.8'
       - run: pip install tox
       - run: tox run -e mypy
+
+  test_pyright:
+    name: Check static test cases with pyright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - run: pip install tox
+      - run: tox run -e pyright
