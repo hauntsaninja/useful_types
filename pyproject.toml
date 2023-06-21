@@ -23,8 +23,6 @@ skip-magic-trailing-comma = true
 
 [tool.isort]
 profile = "black"
-# Try to avoid fighting with black because pyi=True
-lines_after_imports = 1
 
 combine_as_imports = true
 line_length = 100
