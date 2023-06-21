@@ -1,19 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import Field, is_dataclass
+from dataclasses import Field
 from types import FrameType, TracebackType
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Callable,
-    ClassVar,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    final,
-    runtime_checkable,
-)
+from typing import Any, Callable, ClassVar, Tuple, Type, TypeVar, Union, final, runtime_checkable
 from typing_extensions import LiteralString, Protocol, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
