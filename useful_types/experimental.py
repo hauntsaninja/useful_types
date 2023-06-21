@@ -7,7 +7,6 @@ from typing import (
     Any,
     Callable,
     ClassVar,
-    Protocol,
     Tuple,
     Type,
     TypeVar,
@@ -15,7 +14,7 @@ from typing import (
     final,
     runtime_checkable,
 )
-from typing_extensions import LiteralString, TypeAlias
+from typing_extensions import LiteralString, Protocol, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, Tuple[None, None, None]]
