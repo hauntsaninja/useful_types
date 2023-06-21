@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import abc
-from dataclasses import Field, dataclass, is_dataclass
+from dataclasses import Field, is_dataclass
 from types import FrameType, TracebackType
 from typing import (
     TYPE_CHECKING,

@@ -21,10 +21,8 @@ def test_DataclassLike(x: DataclassLike, y: Union[DataclassLike, Type[DataclassL
     # DataclassLike cannot be instantiated
     DataclassLike()  # type: ignore
 
-
 @dc.dataclass
 class Foo:
     x: int
-
 
 test_DataclassLike(Foo(42), Foo)
