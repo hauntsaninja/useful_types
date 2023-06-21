@@ -22,6 +22,7 @@ ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
 TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction", None]]
 
+
 # Might not work as expected for pyright, see
 #   https://github.com/python/typeshed/pull/9362
 #   https://github.com/microsoft/pyright/issues/4339
