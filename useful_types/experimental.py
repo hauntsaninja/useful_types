@@ -36,12 +36,9 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction"
 # Might not work as expected for pyright, see
 #   https://github.com/python/typeshed/pull/9362
 #   https://github.com/microsoft/pyright/issues/4339
-#
-# The type ignore is to workaround a mypy complaint:
-# Final class useful_types.experimental.DataclassLike has abstract attributes "__dataclass_fields__"
 @final
 @runtime_checkable
-class DataclassLike(Protocol):  # type: ignore[misc]
+class DataclassLike(Protocol):
     """Abstract base class for all dataclass types.
 
     Mainly useful for type-checking.
@@ -49,12 +46,8 @@ class DataclassLike(Protocol):  # type: ignore[misc]
 
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]] = {}
 
-    if not TYPE_CHECKING:
-
-        def __init_subclass__(cls):
-            raise TypeError(
-                "Use the @dataclass decorator to create dataclasses, "
-                "rather than subclassing dataclasses.DataclassLike"
-            )
-
-        __subclasshook__ = is_dataclass
+    def __init_subclass__(cls):
+        raise TypeError(
+            "Use the @dataclass decorator to create dataclasses, "
+            "rather than subclassing dataclasses.DataclassLike"
+        )
