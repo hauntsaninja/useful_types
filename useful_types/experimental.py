@@ -50,9 +50,11 @@ class DataclassLike(Protocol):  # type: ignore[misc]
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]] = {}
 
     if not TYPE_CHECKING:
+
         def __init_subclass__(cls):
             raise TypeError(
                 "Use the @dataclass decorator to create dataclasses, "
                 "rather than subclassing dataclasses.DataclassLike"
             )
+
         __subclasshook__ = is_dataclass
