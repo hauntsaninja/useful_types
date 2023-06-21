@@ -34,33 +34,26 @@ ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
 TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction", None]]
 
-if TYPE_CHECKING:
-    # Might not work as expected for pyright, see
-    #   https://github.com/python/typeshed/pull/9362
-    #   https://github.com/microsoft/pyright/issues/4339
-    #
-    # The type ignore is to workaround a mypy complaint:
-    # Final class useful_types.experimental.DataclassLike has abstract attributes "__dataclass_fields__"
-    @final
-    @runtime_checkable
-    class DataclassLike(Protocol):  # type: ignore[misc]
-        __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+# Might not work as expected for pyright, see
+#   https://github.com/python/typeshed/pull/9362
+#   https://github.com/microsoft/pyright/issues/4339
+#
+# The type ignore is to workaround a mypy complaint:
+# Final class useful_types.experimental.DataclassLike has abstract attributes "__dataclass_fields__"
+@final
+@runtime_checkable
+class DataclassLike(Protocol):  # type: ignore[misc]
+    """Abstract base class for all dataclass types.
 
-else:
-    @dataclass(init=False, repr=False, eq=False)
-    class DataclassLike(metaclass=abc.ABCMeta):
-        """Abstract base class for all dataclass types.
+    Mainly useful for type-checking.
+    """
 
-        Mainly useful for type-checking.
-        """
+    __dataclass_fields__: ClassVar[dict[str, Field[Any]]] = {}
 
+    if not TYPE_CHECKING:
         def __init_subclass__(cls):
             raise TypeError(
                 "Use the @dataclass decorator to create dataclasses, "
                 "rather than subclassing dataclasses.DataclassLike"
-            )
-        def __new__(cls):
-            raise TypeError(
-                "dataclasses.DataclassLike is an abstract class that cannot be instantiated"
             )
         __subclasshook__ = is_dataclass
