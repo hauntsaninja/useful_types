@@ -2,7 +2,18 @@ from __future__ import annotations
 
 from dataclasses import Field
 from types import FrameType, TracebackType
-from typing import Any, Callable, ClassVar, Tuple, Type, TypeVar, Union, final, runtime_checkable, TYPE_CHECKING
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    ClassVar,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    final,
+    runtime_checkable,
+)
 from typing_extensions import LiteralString, Protocol, TypeAlias
 
 ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
@@ -37,6 +48,7 @@ class DataclassLike(Protocol):
 
     # we don't want type checkers thinking this is a protocol member; it isn't
     if not TYPE_CHECKING:
+
         def __init_subclass__(cls):
             raise TypeError(
                 "Use the @dataclass decorator to create dataclasses, "
