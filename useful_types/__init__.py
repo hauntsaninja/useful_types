@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Awaitable, Iterable, Sequence, Set as AbstractSet, Sized
 from os import PathLike
 from typing import Any, TypeVar, Union, overload
-from typing_extensions import Buffer, Literal, Protocol, TypeAlias
+from typing_extensions import Buffer, Literal, Never, Protocol, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -320,6 +320,16 @@ class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
 
 
 class SizedBuffer(Sized, Buffer, Protocol):
+    ...
+
+
+@overload
+def not_none(obj: None, /, message: str | None = ...) -> Never:
+    ...
+
+
+@overload
+def not_none(obj: _T, /, message: str | None = ...) -> _T:
     ...
 
 
