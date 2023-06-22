@@ -21,24 +21,36 @@ _T_contra = TypeVar("_T_contra", contravariant=True)
 # "Incomplete | None" instead of "Any | None".
 Incomplete: TypeAlias = Any
 
+
 class IdentityFunction(Protocol):
-    def __call__(self, __x: _T) -> _T: ...
+    def __call__(self, __x: _T) -> _T:
+        ...
+
 
 # ====================
 # Comparison protocols
 # ====================
 
+
 class SupportsDunderLT(Protocol[_T_contra]):
-    def __lt__(self, __other: _T_contra) -> bool: ...
+    def __lt__(self, __other: _T_contra) -> bool:
+        ...
+
 
 class SupportsDunderGT(Protocol[_T_contra]):
-    def __gt__(self, __other: _T_contra) -> bool: ...
+    def __gt__(self, __other: _T_contra) -> bool:
+        ...
+
 
 class SupportsDunderLE(Protocol[_T_contra]):
-    def __le__(self, __other: _T_contra) -> bool: ...
+    def __le__(self, __other: _T_contra) -> bool:
+        ...
+
 
 class SupportsDunderGE(Protocol[_T_contra]):
-    def __ge__(self, __other: _T_contra) -> bool: ...
+    def __ge__(self, __other: _T_contra) -> bool:
+        ...
+
 
 class SupportsAllComparisons(
     SupportsDunderLT[Any],
@@ -46,7 +58,9 @@ class SupportsAllComparisons(
     SupportsDunderLE[Any],
     SupportsDunderGE[Any],
     Protocol,
-): ...
+):
+    ...
+
 
 SupportsRichComparison: TypeAlias = Union[SupportsDunderLT[Any], SupportsDunderGT[Any]]
 SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichComparison)
@@ -55,65 +69,107 @@ SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichC
 # Dunder protocols
 # ====================
 
+
 class SupportsNext(Protocol[_T_co]):
-    def __next__(self) -> _T_co: ...
+    def __next__(self) -> _T_co:
+        ...
+
 
 class SupportsAnext(Protocol[_T_co]):
-    def __anext__(self) -> Awaitable[_T_co]: ...
+    def __anext__(self) -> Awaitable[_T_co]:
+        ...
+
 
 class SupportsAdd(Protocol[_T_contra, _T_co]):
-    def __add__(self, __x: _T_contra) -> _T_co: ...
+    def __add__(self, __x: _T_contra) -> _T_co:
+        ...
+
 
 class SupportsRAdd(Protocol[_T_contra, _T_co]):
-    def __radd__(self, __x: _T_contra) -> _T_co: ...
+    def __radd__(self, __x: _T_contra) -> _T_co:
+        ...
+
 
 class SupportsSub(Protocol[_T_contra, _T_co]):
-    def __sub__(self, __x: _T_contra) -> _T_co: ...
+    def __sub__(self, __x: _T_contra) -> _T_co:
+        ...
+
 
 class SupportsRSub(Protocol[_T_contra, _T_co]):
-    def __rsub__(self, __x: _T_contra) -> _T_co: ...
+    def __rsub__(self, __x: _T_contra) -> _T_co:
+        ...
+
 
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
-    def __divmod__(self, __other: _T_contra) -> _T_co: ...
+    def __divmod__(self, __other: _T_contra) -> _T_co:
+        ...
+
 
 class SupportsRDivMod(Protocol[_T_contra, _T_co]):
-    def __rdivmod__(self, __other: _T_contra) -> _T_co: ...
+    def __rdivmod__(self, __other: _T_contra) -> _T_co:
+        ...
+
 
 # This protocol is generic over the iterator type, while Iterable is
 # generic over the type that is iterated over.
 class SupportsIter(Protocol[_T_co]):
-    def __iter__(self) -> _T_co: ...
+    def __iter__(self) -> _T_co:
+        ...
+
 
 # This protocol is generic over the iterator type, while AsyncIterable is
 # generic over the type that is iterated over.
 class SupportsAiter(Protocol[_T_co]):
-    def __aiter__(self) -> _T_co: ...
+    def __aiter__(self) -> _T_co:
+        ...
+
 
 class SupportsLenAndGetItem(Protocol[_T_co]):
-    def __len__(self) -> int: ...
-    def __getitem__(self, __k: int) -> _T_co: ...
+    def __len__(self) -> int:
+        ...
+
+    def __getitem__(self, __k: int) -> _T_co:
+        ...
+
 
 class SupportsTrunc(Protocol):
-    def __trunc__(self) -> int: ...
+    def __trunc__(self) -> int:
+        ...
+
 
 # ====================
 # Mapping-like protocols
 # ====================
 
+
 class SupportsItems(Protocol[_KT_co, _VT_co]):
-    def items(self) -> AbstractSet[tuple[_KT_co, _VT_co]]: ...
+    def items(self) -> AbstractSet[tuple[_KT_co, _VT_co]]:
+        ...
+
 
 class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
-    def keys(self) -> Iterable[_KT]: ...
-    def __getitem__(self, __key: _KT) -> _VT_co: ...
+    def keys(self) -> Iterable[_KT]:
+        ...
+
+    def __getitem__(self, __key: _KT) -> _VT_co:
+        ...
+
 
 class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
-    def __contains__(self, __x: Any) -> bool: ...
-    def __getitem__(self, __key: _KT_contra) -> _VT_co: ...
+    def __contains__(self, __x: Any) -> bool:
+        ...
+
+    def __getitem__(self, __key: _KT_contra) -> _VT_co:
+        ...
+
 
 class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, _VT]):
-    def __setitem__(self, __key: _KT_contra, __value: _VT) -> None: ...
-    def __delitem__(self, __key: _KT_contra) -> None: ...
+    def __setitem__(self, __key: _KT_contra, __value: _VT) -> None:
+        ...
+
+    def __delitem__(self, __key: _KT_contra) -> None:
+        ...
+
 
 # ====================
 # File handling
@@ -194,24 +250,36 @@ OpenBinaryMode: TypeAlias = Union[
     OpenBinaryModeUpdating, OpenBinaryModeReading, OpenBinaryModeWriting
 ]
 
+
 class HasFileno(Protocol):
-    def fileno(self) -> int: ...
+    def fileno(self) -> int:
+        ...
+
 
 FileDescriptor: TypeAlias = int
 FileDescriptorLike: TypeAlias = Union[int, HasFileno]
 FileDescriptorOrPath: TypeAlias = Union[int, StrOrBytesPath]
 
+
 class SupportsRead(Protocol[_T_co]):
-    def read(self, __length: int = ...) -> _T_co: ...
+    def read(self, __length: int = ...) -> _T_co:
+        ...
+
 
 class SupportsReadline(Protocol[_T_co]):
-    def readline(self, __length: int = ...) -> _T_co: ...
+    def readline(self, __length: int = ...) -> _T_co:
+        ...
+
 
 class SupportsNoArgReadline(Protocol[_T_co]):
-    def readline(self) -> _T_co: ...
+    def readline(self) -> _T_co:
+        ...
+
 
 class SupportsWrite(Protocol[_T_contra]):
-    def write(self, __s: _T_contra) -> object: ...
+    def write(self, __s: _T_contra) -> object:
+        ...
+
 
 # ====================
 # Buffer protocols
@@ -227,22 +295,35 @@ WriteableBuffer: TypeAlias = Buffer
 # Same as WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer: TypeAlias = Buffer
 
+
 class SliceableBuffer(Buffer, Protocol):
-    def __getitem__(self, __slice: slice) -> Sequence[int]: ...
+    def __getitem__(self, __slice: slice) -> Sequence[int]:
+        ...
+
 
 class IndexableBuffer(Buffer, Protocol):
-    def __getitem__(self, __i: int) -> int: ...
+    def __getitem__(self, __i: int) -> int:
+        ...
+
 
 class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
-    def __contains__(self, __x: Any) -> bool: ...
-    @overload
-    def __getitem__(self, __slice: slice) -> Sequence[int]: ...
-    @overload
-    def __getitem__(self, __i: int) -> int: ...
+    def __contains__(self, __x: Any) -> bool:
+        ...
 
-class SizedBuffer(Sized, Buffer, Protocol): ...
+    @overload
+    def __getitem__(self, __slice: slice) -> Sequence[int]:
+        ...
 
-def not_none(obj: _T | None, /, message: str | None = None) -> _T:
+    @overload
+    def __getitem__(self, __i: int) -> int:
+        ...
+
+
+class SizedBuffer(Sized, Buffer, Protocol):
+    ...
+
+
+    def not_none(obj: _T | None, /, message: str | None = None) -> _T:
     """Raise TypeError if obj is None, otherwise return obj.
 
     Useful for safely casting away optional types.
