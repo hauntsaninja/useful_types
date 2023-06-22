@@ -323,7 +323,7 @@ class SizedBuffer(Sized, Buffer, Protocol):
     ...
 
 
-    def not_none(obj: _T | None, /, message: str | None = None) -> _T:
+def not_none(obj: _T | None, /, message: str | None = None) -> _T:
     """Raise TypeError if obj is None, otherwise return obj.
 
     Useful for safely casting away optional types.
