@@ -324,12 +324,12 @@ class SizedBuffer(Sized, Buffer, Protocol):
 
 
 @overload
-def not_none(obj: None, /, message: str | None = ...) -> Never:
+def not_none(obj: _T, /, message: str | None = ...) -> _T:
     ...
 
 
 @overload
-def not_none(obj: _T, /, message: str | None = ...) -> _T:
+def not_none(obj: None, /, message: str | None = ...) -> Never:
     ...
 
 
