@@ -37,7 +37,6 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction"
 #   https://github.com/python/typeshed/pull/9362
 #   https://github.com/microsoft/pyright/issues/4339
 @final
-@runtime_checkable
 class DataclassLike(Protocol):
     """Abstract base class for all dataclass types.
 
