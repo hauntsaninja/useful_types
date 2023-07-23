@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable
 from dataclasses import Field
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Protocol, Tuple, TypeVar, Union
-from typing_extensions import LiteralString, TypeAlias
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Tuple, Type, TypeVar, Union, final
+from typing_extensions import LiteralString, Protocol, TypeAlias
 
-ExcInfo: TypeAlias = Tuple[type[BaseException], BaseException, TracebackType]
+ExcInfo: TypeAlias = Tuple[Type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, Tuple[None, None, None]]
 
 # Superset of typing.AnyStr that also includes LiteralString
@@ -26,5 +25,20 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Union["TraceFunction"
 # Might not work as expected for pyright, see
 #   https://github.com/python/typeshed/pull/9362
 #   https://github.com/microsoft/pyright/issues/4339
-class DataclassInstance(Protocol):
-    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+@final
+class DataclassLike(Protocol):
+    """Abstract base class for all dataclass types.
+
+    Mainly useful for type-checking.
+    """
+
+    __dataclass_fields__: ClassVar[dict[str, Field[Any]]] = {}
+
+    # we don't want type checkers thinking this is a protocol member; it isn't
+    if not TYPE_CHECKING:
+
+        def __init_subclass__(cls):
+            raise TypeError(
+                "Use the @dataclass decorator to create dataclasses, "
+                "rather than subclassing dataclasses.DataclassLike"
+            )

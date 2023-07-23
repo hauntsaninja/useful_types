@@ -21,8 +21,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test_import:
-    name: Check import useful_types
+  runtime_tests:
+    name: Runtime tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: pip install tox
-      - run: tox run -e import
+      - run: tox run -e runtime_tests
 
   test_mypy:
     name: Check static test cases with mypy
