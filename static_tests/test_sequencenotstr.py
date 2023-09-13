@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Sequence, TypeVar
+from typing_extensions import assert_type
 
 from useful_types import SequenceNotStr
 
@@ -12,6 +13,10 @@ def takes_sequence(x: Sequence[T]) -> T:
 
 
 def takes_sequence_not_str(x: SequenceNotStr[T]) -> T:
+    assert_type(len(x), int)
+    assert_type(x[0], T)
+    assert_type(x[:], Sequence[T])
+
     return next(iter(x))
 
 
