@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from typing import Sequence, TypeVar
+
 from useful_types import SequenceNotStr
 
 T = TypeVar("T")
