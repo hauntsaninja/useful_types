@@ -323,7 +323,8 @@ class SizedBuffer(Sized, Buffer, Protocol):
     ...
 
 
-# Source from https://github.com/python/typing/issues/256
+# Source from https://github.com/python/typing/issues/256#issuecomment-1442633430
+# This works because str.__contains__ does not accept object (either in typeshed or at runtime)
 class SequenceNotStr(Protocol[_T_co]):
     @overload
     def __getitem__(self, index: SupportsIndex, /) -> _T_co:
@@ -340,4 +341,13 @@ class SequenceNotStr(Protocol[_T_co]):
         ...
 
     def __iter__(self) -> Iterator[_T_co]:
+        ...
+
+    def index(self, value: Any, /, start: int = 0, stop: int = ...) -> int:
+        ...
+
+    def count(self, value: Any, /) -> int:
+        ...
+
+    def __reversed__(self) -> Iterator[_T_co]:
         ...
