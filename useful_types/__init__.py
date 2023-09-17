@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from collections.abc import Awaitable, Iterable, Sequence, Set as AbstractSet, Sized
+from collections.abc import Awaitable, Iterable, Iterator, Sequence, Set as AbstractSet, Sized
 from os import PathLike
 from typing import Any, TypeVar, Union, overload
-from typing_extensions import Buffer, Literal, Protocol, TypeAlias
+from typing_extensions import Buffer, Literal, Protocol, SupportsIndex, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -321,3 +321,33 @@ class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
 
 class SizedBuffer(Sized, Buffer, Protocol):
     ...
+
+
+# Source from https://github.com/python/typing/issues/256#issuecomment-1442633430
+# This works because str.__contains__ does not accept object (either in typeshed or at runtime)
+class SequenceNotStr(Protocol[_T_co]):
+    @overload
+    def __getitem__(self, index: SupportsIndex, /) -> _T_co:
+        ...
+
+    @overload
+    def __getitem__(self, index: slice, /) -> Sequence[_T_co]:
+        ...
+
+    def __contains__(self, value: object, /) -> bool:
+        ...
+
+    def __len__(self) -> int:
+        ...
+
+    def __iter__(self) -> Iterator[_T_co]:
+        ...
+
+    def index(self, value: Any, /, start: int = 0, stop: int = ...) -> int:
+        ...
+
+    def count(self, value: Any, /) -> int:
+        ...
+
+    def __reversed__(self) -> Iterator[_T_co]:
+        ...
