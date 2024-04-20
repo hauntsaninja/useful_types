@@ -1,6 +1,6 @@
 [project]
 name = "useful_types"
-version = "0.2.0"
+version = "0.2.1"
 authors = [{name = "The Python typing community"}]
 description = "A collection of useful types."
 readme = "README.md"
