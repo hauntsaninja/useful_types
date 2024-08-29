@@ -54,6 +54,8 @@ class SupportsAllComparisons(
     SupportsDunderGE[Any],
     Protocol,
 ): ...
+
+
 SupportsAllComparisonsT = TypeVar("SupportsAllComparisonsT", bound=SupportsAllComparisons)
 
 
