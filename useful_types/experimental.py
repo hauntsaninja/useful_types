@@ -44,9 +44,12 @@ class DataclassLike(Protocol):
             )
 
 
+_T = TypeVar("_T")
+
+
 # Based on: https://github.com/python/mypy/issues/8363#issuecomment-2462048345
-class ExactType(Protocol[T]):
+class ExactType(Protocol[_T]):
     @property
-    def __class__(self, /) -> type[T]: ...
+    def __class__(self, /) -> type[_T]: ...
     @__class__.setter
-    def __class__(self, t: type[T], /) -> None: ...
+    def __class__(self, t: type[_T], /) -> None: ...
