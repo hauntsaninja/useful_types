@@ -42,3 +42,14 @@ class DataclassLike(Protocol):
                 "Use the @dataclass decorator to create dataclasses, "
                 "rather than subclassing dataclasses.DataclassLike"
             )
+
+
+_T = TypeVar("_T")
+
+
+# Based on: https://github.com/python/mypy/issues/8363#issuecomment-2462048345
+class ExactType(Protocol[_T]):
+    @property
+    def __class__(self, /) -> type[_T]: ...
+    @__class__.setter
+    def __class__(self, t: type[_T], /) -> None: ...
