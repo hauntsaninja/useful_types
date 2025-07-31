@@ -56,6 +56,9 @@ class SupportsAllComparisons(
 ): ...
 
 
+SupportsAllComparisonsT = TypeVar("SupportsAllComparisonsT", bound=SupportsAllComparisons)
+
+
 SupportsRichComparison: TypeAlias = Union[SupportsDunderLT[Any], SupportsDunderGT[Any]]
 SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichComparison)
 
